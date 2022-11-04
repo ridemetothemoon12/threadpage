@@ -38,7 +38,7 @@ function Main() {
               (threads && threads.map((e,index)=>{
                   return (
                     (index + 1 <= nextCount && 
-                      <div key={e.id} className='basis-80 h-44 hover:scale-105 hover:drop-shadow-lg transition-all duration-100 mt-2 mx-1' style={{backgroundSize: "cover", backgroundPosition: "center", backgroundImage: `url(${e.url})`}}>{e.title}</div>
+                      <div key={e.id} className='basis-80 h-44 hover:scale-105 hover:drop-shadow-lg transition-all duration-100 mt-2 mx-1 cursor-pointer' style={{backgroundSize: "cover", backgroundPosition: "center", backgroundImage: `url(${e.url})`}}>{e.title}</div>
                       )
                   )
               }))
