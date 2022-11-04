@@ -48,7 +48,7 @@ function Main() {
             <button className='px-16 py-2 bg-blue-500 rounded-lg text-white' onClick={()=>{
               setCurrentCount(nextCount)
               setNextCount(nextCount + 4)
-            }}>더보기</button>
+            }}>더보기1</button>
           </div>
         </div>
 
