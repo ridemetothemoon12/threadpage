@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react'
 
 function Main() {
   const [threads, setThreads] = useState([]);
-  const [currentCount , setCurrentCount] = useState(0)
   const [nextCount , setNextCount] = useState(4)
 
   const fetchThreads = async() => {
@@ -15,18 +14,9 @@ function Main() {
     );
   }
 
-  function threadSetter(e) {
-    for(let i = currentCount; i < nextCount; i++) {
-      setThreads(e.data[i]);
-      console.log("processing: " + i)
-    }
-  }
-
-
   useEffect(() => {
     fetchThreads();
   }, [])
-
 
   return (
     <>
@@ -46,7 +36,6 @@ function Main() {
           </div>
           <div className='my-2 w-full flex justify-end'>
             <button className='px-16 py-2 bg-blue-500 rounded-lg text-white' onClick={()=>{
-              setCurrentCount(nextCount)
               setNextCount(nextCount + 4)
             }}>더보기</button>
           </div>
