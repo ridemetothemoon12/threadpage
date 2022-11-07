@@ -8,7 +8,7 @@ React | Tailwind css | Redux | Axios
 
 # 현재 구현율
 
-v.1 : 5%(Main page & Navigation)
+v.1 : 8%(redux. get index id.)
 
 # Main Components
 
