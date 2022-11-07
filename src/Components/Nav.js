@@ -24,7 +24,10 @@ function Nav() {
     navigate(`/listContent/${val}`);
     dispatch(ChangeListIndex(Number(val)))
   }
+  function writeNavigate() {
+    navigate(`/write`);
 
+  }
   return (
     <>
       <div className="bg-slate-400 w-full h-20 fixed top-0">
@@ -32,7 +35,7 @@ function Nav() {
           <h3 className='cursor-pointer' onClick={() => navigate('/')}>내 게시판</h3>
           <ul className='flex justify-between w-1/5'>
             <li onClick={randomRead} className='text-red-400 bg-slate-200 px-8 py-2 rounded-md hover:bg-slate-300 hover:text-black cursor-pointer transition-all duration-200'>랜덤 읽기</li>
-            <li className='text-red-400 bg-slate-200 px-8 py-2 rounded-md hover:bg-slate-300 hover:text-black cursor-pointer transition-all duration-200'>쓰기</li>
+            <li onClick={writeNavigate} className='text-red-400 bg-slate-200 px-8 py-2 rounded-md hover:bg-slate-300 hover:text-black cursor-pointer transition-all duration-200'>쓰기</li>
           </ul>
         </div>
       </div>
