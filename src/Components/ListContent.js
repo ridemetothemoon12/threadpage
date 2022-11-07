@@ -26,18 +26,12 @@ function Content() {
   const navigate = useNavigate();
 
   function moveToNextPage() {
-  {    dispatch(ChangeListIndex(pageContentId + 1))
-    console.log("dispatched on next page")
-    console.log(getItems[pageContentId])
-  }
-  {    navigate(`/listContent/${pageContentId + 1}`)
-    console.log("changed index")
-    console.log(getItems[pageContentId])
-  }
+    dispatch(ChangeListIndex(pageContentId + 1))
+    navigate(`/listContent/${pageContentId + 1}`)
   }
   function moveToPrevPage() {
-    pageContentId !== 1 ? dispatch(ChangeListIndex(pageContentId - 1)) : alert("end of content");
-    pageContentId !== 1 ? navigate(`/listContent/${pageContentId - 1}`) : alert("end of content");
+    pageContentId !== 1 ? dispatch(ChangeListIndex(pageContentId - 1)) : alert("첫 글 입니다!");
+    pageContentId !== 1 && navigate(`/listContent/${pageContentId - 1}`);
   }
   
   return (
