@@ -16,7 +16,7 @@ function Main() {
   const [threads, setThreads] = useState([]);
   const [nextCount , setNextCount] = useState(4)
   const fetchThreads = async() => {
-    await axios.all([ axios.get('Photos.json') ])
+    await axios.all([ axios.get('photos.json') ])
     .then( axios.spread((data1) => {
         setThreads([...data1.data])
       })
@@ -36,7 +36,7 @@ function Main() {
               (threads && threads.map((e, index) => {
                   return (
                     (index + 1 <= nextCount && 
-                      <div key={e.id} onClick={() => {goToPage(`/listContent/${e.id}`); dispatch(ChangeListIndex(`${e.id}`))}} 
+                      <div key={e.id} onClick={() => {goToPage(`/listContent/${e.id}`); dispatch(ChangeListIndex(e.id-1));}} 
                       className='basis-80 h-44 hover:scale-105 hover:drop-shadow-lg transition-all duration-100 mt-2 mx-1 cursor-pointer' 
                       style={{backgroundSize: "cover", backgroundPosition: "center", backgroundImage: `url(${e.url})`}}>{e.title}</div>
                     )

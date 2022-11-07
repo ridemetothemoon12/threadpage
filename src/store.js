@@ -9,7 +9,6 @@ let listIndex = createSlice({
         }
     }
 })
-
 export let {ChangeListIndex} = listIndex.actions
 
 export default configureStore({
