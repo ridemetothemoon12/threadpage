@@ -3,7 +3,7 @@ import React from 'react'
 function Nav() {
   return (
     <>
-      <div className="bg-slate-400 w-full h-20 fixed">
+      <div className="bg-slate-400 w-full h-20 fixed top-0">
         <div className='mx-auto w-4/5 h-full flex justify-between items-center text-xl text-white'>
           <h3>내 게시판</h3>
           <ul className='flex justify-between w-1/5'>
