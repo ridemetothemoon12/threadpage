@@ -9,6 +9,7 @@ function Content() {
   const pathUrl = location.pathname.slice(13)
 
   let pageContentId =  useSelector((state) => state.listIndex.data)
+  console.log("initial state: " + pageContentId)
   const [getItems, setGetItems] = useState([]);
   const [getItemsId, setGetItemsId] = useState([]);
   const fetchThreads = async() => {
@@ -22,35 +23,38 @@ function Content() {
     for(let i = 0; i < getItems.length; i++) {
       getItemsId.push(getItems[i].id);
     }
-    console.log(getItemsId)
   }
   getIds();
-  console.log(getItemsId.indexOf(Number(pathUrl)))
   
   useEffect(() => {
-    fetchThreads();
     dispatch(ChangeListIndex(Number(pathUrl)))
+    fetchThreads();
   }, [])
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function moveToNextPage() {
-    if(getItemsId.indexOf(pageContentId) !== -1) {
+    if(getItemsId.indexOf(pageContentId + 1) !== -1) {
       dispatch(ChangeListIndex(pageContentId + 1))
-      navigate(`/listContent/${pageContentId}`)
+      navigate(`/listContent/${pageContentId + 1}`)
     }
     else {
-      pageContentId += 1;
+      dispatch(ChangeListIndex(pageContentId + 2))
+      navigate(`/listContent/${pageContentId + 2}`)
+      // pageContentId += 1;
     }
+    console.log(pageContentId, getItemsId.indexOf(pageContentId) !== -1)
   }
   function moveToPrevPage() {
-    if(getItemsId.indexOf(pageContentId) !== -1) {
-      pageContentId !== 1 ? dispatch(ChangeListIndex(pageContentId - 1)) : alert("첫 글 입니다!");
-      pageContentId !== 1 && navigate(`/listContent/${pageContentId - 1}`);
+    console.log("Prev page: " + pageContentId)
+    if(getItemsId.indexOf(pageContentId - 1) !== -1) {
+      getItemsId.indexOf(pageContentId) !== 0 ? dispatch(ChangeListIndex(pageContentId - 1)) : alert("첫 글 입니다!");
+      getItemsId.indexOf(pageContentId) !== 0 && navigate(`/listContent/${pageContentId - 1}`);
     }
     else {
-      pageContentId -= 1;
+      getItemsId.indexOf(pageContentId) !== 0 ? dispatch(ChangeListIndex(pageContentId - 2)) : alert("첫 글 입니다!")
+      getItemsId.indexOf(pageContentId) !== 0 && navigate(`/listContent/${pageContentId - 2}`)
     }
   }
   
@@ -60,7 +64,7 @@ function Content() {
         <div className='w-4/5 h-10 mt-24 bg-orange-400 rounded-lg text-center text-xl text-white flex justify-center items-center'>
           {
             getItems.map((e, index) => {
-              return (e.id === Number(pathUrl) && <h3 key={e.id}>{e.title}</h3>)
+              return (e.id === Number(pathUrl) && <h3 key={e.id}>{e.title}<p>{e.id}</p></h3>)
             })
           }
         </div>
