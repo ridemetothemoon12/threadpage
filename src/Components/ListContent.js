@@ -1,22 +1,19 @@
-import React, { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
+import React, { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
-import { ChangeListIndex } from '../store'
 
 function Content() {
   const location = useLocation();
   const pathUrl = location.pathname.slice(13)
-
-  let pageContentId =  useSelector((state) => state.listIndex.data)
-  console.log("initial state: " + pageContentId)
+  
   const [getItems, setGetItems] = useState([]);
-  const [getItemsId, setGetItemsId] = useState([]);
+  const [getItemsId] = useState([]);
+
   const fetchThreads = async() => {
     await axios.all([ axios.get('http://localhost:3001/posts') ])
     .then( axios.spread((data1) => {
       setGetItems([...data1.data])
-      })
+    })
     );
   }
   function getIds() {
@@ -27,35 +24,17 @@ function Content() {
   getIds();
   
   useEffect(() => {
-    dispatch(ChangeListIndex(Number(pathUrl)))
     fetchThreads();
   }, [])
-
-  const dispatch = useDispatch();
+  
+  let setIndex = getItemsId.indexOf(Number(pathUrl));
   const navigate = useNavigate();
-
+  
   function moveToNextPage() {
-    if(getItemsId.indexOf(pageContentId + 1) !== -1) {
-      dispatch(ChangeListIndex(pageContentId + 1))
-      navigate(`/listContent/${pageContentId + 1}`)
-    }
-    else {
-      dispatch(ChangeListIndex(pageContentId + 2))
-      navigate(`/listContent/${pageContentId + 2}`)
-      // pageContentId += 1;
-    }
-    console.log(pageContentId, getItemsId.indexOf(pageContentId) !== -1)
+    setIndex !== (getItems.length) - 1 && navigate(`/listContent/${getItemsId[setIndex + 1]}`)
   }
   function moveToPrevPage() {
-    console.log("Prev page: " + pageContentId)
-    if(getItemsId.indexOf(pageContentId - 1) !== -1) {
-      getItemsId.indexOf(pageContentId) !== 0 ? dispatch(ChangeListIndex(pageContentId - 1)) : alert("첫 글 입니다!");
-      getItemsId.indexOf(pageContentId) !== 0 && navigate(`/listContent/${pageContentId - 1}`);
-    }
-    else {
-      getItemsId.indexOf(pageContentId) !== 0 ? dispatch(ChangeListIndex(pageContentId - 2)) : alert("첫 글 입니다!")
-      getItemsId.indexOf(pageContentId) !== 0 && navigate(`/listContent/${pageContentId - 2}`)
-    }
+    setIndex !== 0 && navigate(`/listContent/${getItemsId[setIndex - 1]}`)
   }
   
   return (
