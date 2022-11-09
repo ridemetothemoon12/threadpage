@@ -8,15 +8,25 @@ function Content() {
   const location = useLocation();
   const pathUrl = location.pathname.slice(13)
 
-  const pageContentId =  useSelector((state) => state.listIndex.data)
+  let pageContentId =  useSelector((state) => state.listIndex.data)
   const [getItems, setGetItems] = useState([]);
+  const [getItemsId, setGetItemsId] = useState([]);
   const fetchThreads = async() => {
-    await axios.all([ axios.get('/photos.json') ])
+    await axios.all([ axios.get('http://localhost:3001/posts') ])
     .then( axios.spread((data1) => {
       setGetItems([...data1.data])
       })
     );
   }
+  function getIds() {
+    for(let i = 0; i < getItems.length; i++) {
+      getItemsId.push(getItems[i].id);
+    }
+    console.log(getItemsId)
+  }
+  getIds();
+  console.log(getItemsId.indexOf(Number(pathUrl)))
+  
   useEffect(() => {
     fetchThreads();
     dispatch(ChangeListIndex(Number(pathUrl)))
@@ -26,12 +36,22 @@ function Content() {
   const navigate = useNavigate();
 
   function moveToNextPage() {
-    dispatch(ChangeListIndex(pageContentId + 1))
-    navigate(`/listContent/${pageContentId + 1}`)
+    if(getItemsId.indexOf(pageContentId) !== -1) {
+      dispatch(ChangeListIndex(pageContentId + 1))
+      navigate(`/listContent/${pageContentId}`)
+    }
+    else {
+      pageContentId += 1;
+    }
   }
   function moveToPrevPage() {
-    pageContentId !== 1 ? dispatch(ChangeListIndex(pageContentId - 1)) : alert("첫 글 입니다!");
-    pageContentId !== 1 && navigate(`/listContent/${pageContentId - 1}`);
+    if(getItemsId.indexOf(pageContentId) !== -1) {
+      pageContentId !== 1 ? dispatch(ChangeListIndex(pageContentId - 1)) : alert("첫 글 입니다!");
+      pageContentId !== 1 && navigate(`/listContent/${pageContentId - 1}`);
+    }
+    else {
+      pageContentId -= 1;
+    }
   }
   
   return (

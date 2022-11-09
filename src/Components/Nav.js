@@ -12,7 +12,7 @@ function Nav() {
   const [randomItems, setRandomItems] = useState([]);
 
   const fetchThreads = async() => {
-    const response = await axios.get('photos.json');
+    const response = await axios.get('http://localhost:3001/posts');
     setRandomItems(response.data)
   };
   useEffect(() => {

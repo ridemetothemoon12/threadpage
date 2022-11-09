@@ -16,7 +16,7 @@ function Main() {
   const [threads, setThreads] = useState([]);
   const [nextCount , setNextCount] = useState(4)
   const fetchThreads = async() => {
-    await axios.all([ axios.get('photos.json') ])
+    await axios.all([ axios.get('http://localhost:3001/posts') ])
     .then( axios.spread((data1) => {
         setThreads([...data1.data])
       })
