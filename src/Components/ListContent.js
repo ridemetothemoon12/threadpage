@@ -16,17 +16,16 @@ function Content() {
     })
     );
   }
+  useEffect(() => {
+    fetchThreads();
+  }, [])
+  
   function getIds() {
     for(let i = 0; i < getItems.length; i++) {
       getItemsId.push(getItems[i].id);
     }
   }
   getIds();
-  
-  useEffect(() => {
-    fetchThreads();
-  }, [])
-  
   let setIndex = getItemsId.indexOf(Number(pathUrl));
   const navigate = useNavigate();
   
@@ -37,6 +36,10 @@ function Content() {
     setIndex !== 0 && navigate(`/listContent/${getItemsId[setIndex - 1]}`)
   }
   
+  function postDelete() {
+    axios.delete(`http://localhost:3001/posts/${Number(pathUrl)}`)
+    navigate('/');
+  }
   return (
     <>
       <div className='h-screen bg-slate-500 w-full flex justify-start flex-col items-center'>
@@ -49,7 +52,7 @@ function Content() {
         </div>
         <div className='mt-10 w-4/5 h-fit flex justify-end'>
             <button className='ml-3 mt-1 py-1 px-5 bg-amber-400 rounded-xl hover:text-white hover:bg-stone-400 transition-all duration-100'>수정하기</button>
-            <button className='ml-3 mt-1 py-1 px-5 bg-amber-400 rounded-xl hover:text-white hover:bg-stone-400 transition-all duration-100'>삭제하기</button>
+            <button onClick={() => postDelete()} className='ml-3 mt-1 py-1 px-5 bg-amber-400 rounded-xl hover:text-white hover:bg-stone-400 transition-all duration-100'>삭제하기</button>
         </div>
         <div className='mt-3 w-4/5 h-80 bg-slate-200 rounded-lg'>This is content Wrap</div>
         <div className='w-4/5 h-fit flex justify-between'>
