@@ -4,7 +4,7 @@
 
 # Used skill sets
 
-React | Tailwind css | Redux | Axios | Json server | Postman
+React | Tailwind css | Redux | Axios | Json-server | Postman
 
 # 현재 구현율
 
