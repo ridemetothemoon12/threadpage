@@ -6,9 +6,7 @@ import { useNavigate } from 'react-router-dom'
 function Edit() {
     const navigate = useNavigate();
     const titleAndIdGetter = useSelector(state => state.listItems)
-    console.log("Edit.js: " + titleAndIdGetter.id);
-    console.log("Edit.js: " + titleAndIdGetter.title);
-    
+        
     function updateItems() {
         let title = document.getElementById("title");
         axios.patch(`http://localhost:3001/posts/${titleAndIdGetter.id}` ,{

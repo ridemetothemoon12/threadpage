@@ -45,7 +45,6 @@ function Content() {
     dispatch(ChangeListId(Number(pathUrl)));
     navigate(`/edit/${Number(pathUrl)}`)
   }
-  console.log("listContent.js: " + listItemsId);
   return (
     <>
       <div className='h-screen bg-slate-500 w-full flex justify-start flex-col items-center'>
