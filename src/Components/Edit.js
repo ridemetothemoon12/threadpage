@@ -1,10 +1,10 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-import { useLocation } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 function Edit() {
-    const location = useLocation();
+    const navigate = useNavigate();
     const titleAndIdGetter = useSelector(state => state.listItems)
     console.log("Edit.js: " + titleAndIdGetter.id);
     console.log("Edit.js: " + titleAndIdGetter.title);
@@ -14,6 +14,8 @@ function Edit() {
         axios.patch(`http://localhost:3001/posts/${titleAndIdGetter.id}` ,{
             title: `${title.innerHTML}`
         })
+        alert("수정 완료!")
+        navigate('/')
     }
     return (
         <>
