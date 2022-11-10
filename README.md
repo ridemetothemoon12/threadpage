@@ -8,7 +8,7 @@ React | Tailwind css | Redux | Axios
 
 # 현재 구현율
 
-v.1 : 20%(node js init)
+v.1 : 20%(json server, Postman)
 
 # Main Components
 
