@@ -47,7 +47,7 @@ function Main() {
         </div>
 
         <div className='mx-auto mt-24 w-4/5'>
-          <h3 className='text-white text-xl py-3 px-8 bg-amber-400 rounded-xl'>전체 글 목록 {threads.length}</h3>
+          <h3 className='text-white text-xl py-3 px-8 bg-amber-400 rounded-xl'>전체 글 목록 {(threads.length) + 1}</h3>
           <div className='w-full h-fit flex justify-around mt-3 items-center flex-wrap'>
             {
               (threads && threads.map((e, index) => {
