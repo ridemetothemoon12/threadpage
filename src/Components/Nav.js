@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { ChangeListIndex } from '../store';
 import { useDispatch } from 'react-redux';
-
-
 
 function Nav() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [randomItems, setRandomItems] = useState([]);
+  const [randomItemsIndex] = useState([]);
 
   const fetchThreads = async() => {
     const response = await axios.get('http://localhost:3001/posts');
@@ -19,14 +18,25 @@ function Nav() {
     fetchThreads();
   }, [])
   
+  function randomIndexGetter() {
+    if(randomItemsIndex.length !== randomItems.length) {
+      for(let i = 0; i < randomItems.length; i++) {
+        randomItemsIndex.push(randomItems[i].id)
+      }
+    }
+    else {
+      return
+    }
+  }
+  
   function randomRead() {
-    let val = Math.floor(Math.random()* randomItems.length)
-    navigate(`/listContent/${val}`);
-    dispatch(ChangeListIndex(Number(val)))
+    randomIndexGetter();
+    let val = Math.floor(Math.random()* randomItemsIndex.length)
+    navigate(`/listContent/${randomItemsIndex[val]}`);
+    dispatch(ChangeListIndex(randomItemsIndex[val]))
   }
   function writeNavigate() {
     navigate(`/write`);
-
   }
   return (
     <>
