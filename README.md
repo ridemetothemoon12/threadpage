@@ -8,7 +8,7 @@ React | Tailwind css | Redux | Axios | Json server | Postman
 
 # 현재 구현율
 
-v.1 : 30%(json server, Postman)
+v.1 : 50%(json server, Postman)
 
 # Main Components
 
